@@ -42,10 +42,7 @@ componentDidMount(){
             id:snapshot.id,//as snapshop obj has id but snapshot.data() have email name createdat
             ...snapshot.data()
           }
-         },()=>{
-          console.log(this.state)
          })
-         console.log(this.state )
         });
            
      }else{
