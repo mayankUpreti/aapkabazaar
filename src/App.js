@@ -12,7 +12,7 @@ import Header from './components/header/header.component'
 import {connect} from 'react-redux'
 import {auth,createUserProfileDocument} from './firebase/firebase.utils'
 import {setCurrentUser} from './redux/user/user.action'
-
+import {createStructuredSelector} from 'reselect';
 import {selectCurrentUser} from './redux/user/user.selectors'
 // const HatsPage=(props)=>{
 
@@ -27,7 +27,7 @@ class App extends React.Component{
 unsubscribeFromAuth=null;
 
 componentDidMount(){
- //const {setCurrentUser}=this.props;
+const {setCurrentUser}=this.props;
    this.unsubscribeFromAuth= auth.onAuthStateChanged(async userAuth=>{ //this will give back a fn which when we call close back our subscription
       // this.setState({currentUser:user})
       // console.log(user);
@@ -43,14 +43,16 @@ componentDidMount(){
         });
            
      }else{
-       setCurrentUser({userAuth}) //ie null
+       
+       setCurrentUser(userAuth) //ie null
      }
      
     })
-  }
+  } 
 
   componentWillUnmount(){ //so we want to call it when component will unmount
     this.unsubscribeFromAuth();
+    
   }
 
   render(){
@@ -61,15 +63,20 @@ componentDidMount(){
    <Route exact path='/' component={HomePage}/>
    <Route path='/shop' component={ShopPage}/>
    <Route path='/checkout' component={CheckoutPage}/>
-   <Route exact path='/signin'render={()=>this.props.currentUser ? (<Redirect to='/'/>):(<SignInAndSignUpPage/>)} />
-
+   <Route exact path='/signin' render={()=>
+    this.props.currentUser 
+    ? 
+    (<Redirect to='/'/>)
+    :(<SignInAndSignUpPage/>)} 
+    />
    </Switch>
   </div>)
   }
 }
 
-const mapStateToProps=(state)=>({
-currentUser:selectCurrentUser(state)  //in root reducer we have userReducer=action
+const mapStateToProps=createStructuredSelector({
+currentUser:selectCurrentUser //in root reducer we have userReducer=action
+
 })
 
 const mapDispatchToProps=dispatch=>({
