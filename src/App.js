@@ -27,7 +27,7 @@ class App extends React.Component{
 unsubscribeFromAuth=null;
 
 componentDidMount(){
-  const {setCurrentUser}=this.props;
+ //const {setCurrentUser}=this.props;
    this.unsubscribeFromAuth= auth.onAuthStateChanged(async userAuth=>{ //this will give back a fn which when we call close back our subscription
       // this.setState({currentUser:user})
       // console.log(user);
