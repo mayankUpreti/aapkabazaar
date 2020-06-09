@@ -14,13 +14,6 @@ import {auth,createUserProfileDocument} from './firebase/firebase.utils'
 import {setCurrentUser} from './redux/user/user.action'
 import {createStructuredSelector} from 'reselect';
 import {selectCurrentUser} from './redux/user/user.selectors'
-// const HatsPage=(props)=>{
-
-// console.log(props)
-// return (<div>
-//     <h1>Myanak</h1>
-//     </div>
-// )}
 
 
 class App extends React.Component{
