@@ -10,12 +10,12 @@ export const shopSelectorCollections=createSelector(
 
 export const selectCollectionsForPreview=createSelector(
 [shopSelectorCollections],
-collections=>Object.keys(collections).map(key=>collections[key])
+collections=>collections ? Object.keys(collections).map(key=>collections[key]) :[]
 
 )
 
 export const selectCollection=collectionUrlParams=>
 createSelector(
     [shopSelectorCollections],
-    collections=>collections[collectionUrlParams]//dynamically
+    collections=>(collections ? collections[collectionUrlParams] : null)//dynamically
 )

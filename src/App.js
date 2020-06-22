@@ -1,4 +1,7 @@
 import React from 'react';
+
+
+
 import HomePage from './pages/homepage/homepage.component'
 import ShopPage from './pages/shop/shop.component'
 import CheckoutPage from './pages/checkout/checkout.component'
@@ -20,6 +23,11 @@ class App extends React.Component{
 unsubscribeFromAuth=null;
 
 componentDidMount(){
+
+
+
+
+
 const {setCurrentUser}=this.props;
    this.unsubscribeFromAuth= auth.onAuthStateChanged(async userAuth=>{ //this will give back a fn which when we call close back our subscription
       // this.setState({currentUser:user})
@@ -29,7 +37,7 @@ const {setCurrentUser}=this.props;
       const userRef=await createUserProfileDocument(userAuth);
       userRef.onSnapshot(snapshot=>{ //on change of snapshot
        setCurrentUser({
-            id:snapshot.id,//as snapshop obj has id but snapshot.data() have email name createdat
+            id:snapshot.id,//as snapshop obj has id,exits,metadata etc. but snapshot.data() have email name createdat
             ...snapshot.data()
           
          })
@@ -39,7 +47,9 @@ const {setCurrentUser}=this.props;
        
        setCurrentUser(userAuth) //ie null
      }
-     
+
+     // addCollectionAndDocuments('collections',collectionsArray.map(({title,items})=>({title,items}))) //to add tofirebase and collectiosn is the key with which i denote it in firebase
+    
     })
   } 
 
@@ -68,7 +78,8 @@ const {setCurrentUser}=this.props;
 }
 
 const mapStateToProps=createStructuredSelector({
-currentUser:selectCurrentUser //in root reducer we have userReducer=action
+currentUser:selectCurrentUser, //in root reducer we have userReducer=action
+// collectionsArray:selectCollectionsForPreview //to access the shopdata js
 
 })
 

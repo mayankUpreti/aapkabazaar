@@ -19,8 +19,9 @@ const config={
     const userRef=firestore.doc(`users/${userAuth.uid}`)
     const snapShot=await userRef.get()
     // console.log(snapShot)
+    // console.log(snapShot.data())
     if(!snapShot.exists)
-    {
+    { 
       const {displayName,email}=userAuth;
       const createdAt=new Date();
 
@@ -47,3 +48,40 @@ const config={
   provider.setCustomParameters({prompt:'select_account'});
   export const signInWithGoogle=()=> auth.signInWithPopup(provider);
   export default firebase;
+
+//for addding store to database
+
+export const  addCollectionAndDocuments=async (collectionKey,objectsToAdd)=>{
+const collectionRef=firestore.collection(collectionKey)
+console.log(collectionRef)
+const batch=firestore.batch()
+objectsToAdd.forEach(obj=>{
+ const newDocRef=collectionRef.doc(); //get the document at the emptystring//ie tell firebase to give doc at this reference and generate random id for that
+ // const newDocRef=collectionRef.doc(obj.title);//now key would be titles i.e mens women,sneakers etc
+   batch.set(newDocRef,obj)        //newDocRef.set(obj)
+})
+return await batch.commit() //fires off our batch request and it return a promise adn when succeed it return a null
+}
+
+
+
+//for aaditioon of additional data like route name and id,to the fetched(firebase data) so we can use in our application 
+export const convertCollectionsSnapshotToMap=(collections)=>{
+  const transformedCollection=collections.docs.map(doc=>{
+    const {title,items}=doc.data();
+
+    return{
+      routeName:encodeURI(title.toLowerCase()),
+      id:doc.id,
+      title,
+      items
+    }
+  });
+ // console.log(transformedCollection)
+ 
+//it return a obj with key like jacket,shirt etc and they correspond with their collection
+  return transformedCollection.reduce((accumulator,collection)=>{
+    accumulator[collection.title.toLowerCase()]=collection;
+    return accumulator
+  },{})
+}
