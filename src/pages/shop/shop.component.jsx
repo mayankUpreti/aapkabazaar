@@ -1,19 +1,18 @@
-import React from 'react'
+import React,{lazy} from 'react'
 
 import {Route} from 'react-router-dom'
-import CollectionOverview from '../../components/collection-overview/collection-overview.component'
-import CollectionPage from '../collection/collection.component'
+// import CollectionOverview from '../../components/collection-overview/collection-overview.component'
+// import CollectionPage from '../collection/collection.component'
 import {connect} from 'react-redux'
 import {createStructuredSelector} from 'reselect'
 import {selectIsCollectionFetching,selectIsCollectionsLoaded} from  '../../redux/shop/shop.selector'
 
 import {fetchCollectionsStartAsync} from '../../redux/shop/shop.actions'
 
-
-
 import WithSpinner from '../../components/with-spinner/with-spinner.component'
 
-
+const CollectionOverview=lazy(()=>import('../../components/collection-overview/collection-overview.component'))
+const CollectionPage=lazy(()=>import('../collection/collection.component'))
 const CollectionOverviewWithSpinner=WithSpinner(CollectionOverview);
 const CollectionPageWithSpinner=WithSpinner(CollectionPage);
 
