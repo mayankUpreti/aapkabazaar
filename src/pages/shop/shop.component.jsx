@@ -26,7 +26,7 @@ fetchCollectionsStartAsync()
 
 render(){
 const {match,isCollectionFetching,isCollectionLoaded}=this.props;
-
+// throw Error;
   return (
     <div className='shop-page'>
        <Route exact path={`${match.path}`} 

@@ -1,5 +1,5 @@
 import React from 'react'
-import {ErrorImageOverlay,ErrorImageContainer,ErrorImageText} from './error-boundary'
+import {ErrorImageOverlay,ErrorImageContainer,ErrorImageText} from './error-boundary.styles'
 
 class ErrorBoundary extends React.Component{
     constructor(){
@@ -33,7 +33,5 @@ class ErrorBoundary extends React.Component{
     }
 
 }
-
-
 
 export default ErrorBoundary

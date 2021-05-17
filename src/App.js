@@ -1,7 +1,5 @@
 import React,{lazy,Suspense} from 'react';
 
-
-
 // import HomePage from './pages/homepage/homepage.component'
 // import ShopPage from './pages/shop/shop.component'
 // import CheckoutPage from './pages/checkout/checkout.component'
@@ -10,8 +8,6 @@ import React,{lazy,Suspense} from 'react';
 import {Switch,Route,Redirect}  from 'react-router-dom' 
 import './App.css';
 import Header from './components/header/header.component'
-
-
 import {connect} from 'react-redux'
 import {auth,createUserProfileDocument} from './firebase/firebase.utils'
 import {setCurrentUser} from './redux/user/user.action'
@@ -22,7 +18,8 @@ import ErrorBoundary from './components/error-boundary/error-boundary';
 const HomePage=lazy(()=>import('./pages/homepage/homepage.component'))
 const ShopPage=lazy(()=>import('./pages/shop/shop.component'))
 const SignInAndSignUpPage=lazy(()=>import('./pages/sign-in-and-sign-up/sign-in-and-sign-up.component'))
-const CheckoutPage=lazy(()=>import('./pages/checkout/checkout.component'))
+const CheckoutPage=lazy(()=>import('./pages/checkout/checkout.component'));
+
 class App extends React.Component{
 unsubscribeFromAuth=null;
 
@@ -58,11 +55,10 @@ const {setCurrentUser}=this.props;
   }
 
   render(){
-
-    return( <div>
+   return( <div>
     <Header />
     <Switch>
-      <ErrorBoundary>
+    <ErrorBoundary>
     <Suspense fallback={<div>Loading..........</div>}>
    <Route exact path='/' component={HomePage}/>
    <Route path='/shop' component={ShopPage}/>
@@ -76,8 +72,6 @@ const {setCurrentUser}=this.props;
      </Suspense>
      </ErrorBoundary>
    </Switch>
-  
-  
   </div>)
   }
 }
@@ -85,7 +79,6 @@ const {setCurrentUser}=this.props;
 const mapStateToProps=createStructuredSelector({
 currentUser:selectCurrentUser, //in root reducer we have userReducer=action
 // collectionsArray:selectCollectionsForPreview //to access the shopdata js
-
 })
 
 const mapDispatchToProps=dispatch=>({
